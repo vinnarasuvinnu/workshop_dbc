@@ -1,3 +1,5 @@
+gradient color code (it has to be created inside the drawble folder)
+
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle" >
@@ -9,3 +11,205 @@
         android:type="radial" />
 
 </shape>
+
+************************************************************************************
+
+mainifest files changes for the internet access
+
+ <uses-permission android:name="android.permission.INTERNET" />
+ <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+ 
+ 
+ ************************************************************************************
+ 
+ 
+ volly method for the implementation for http request
+ 
+     implementation 'com.android.volley:volley:1.1.0'
+
+**********************************************************************************
+
+
+
+array of string in the string.xml(resource)
+<string-array name="array_technology">
+        <item>Android</item>
+        <item>Java</item>
+        <item>Php</item>
+        <item>Hadoop</item>
+        <item>Sap</item>
+        <item>Python</item>
+        <item>Ajax</item>
+        <item>C++</item>
+        <item>Ruby</item>
+        <item>Rails</item>
+        <item>.Net</item>
+        <item>Perl</item>
+        <item>Android</item>
+        <item>Java</item>
+        <item>Php</item>
+        <item>Hadoop</item>
+        <item>Sap</item>
+        <item>Python</item>
+        <item>Ajax</item>
+        <item>C++</item>
+        <item>Ruby</item>
+        <item>Rails</item>
+        <item>.Net</item>
+        <item>Perl</item>
+    </string-array>
+    
+    ************************************************
+    
+    
+    
+    to make the loading icon in white
+    
+     <style name="progressBarBlue" parent="@style/Theme.AppCompat">
+        <item name="colorAccent">#fff</item>
+    </style>
+    
+   ****************************************************************
+   
+   post handler for waiting 
+   
+     new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        Intent intent = new Intent(MainActivity.this,Main2Activity.class);
+                        startActivity(intent);
+                    }
+                },
+                10000);
+
+
+************************************************************************
+list view implementation
+
+ listView=findViewById(R.id.listview);
+        listItem=getResources().getStringArray(R.array.array_technology);
+        final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,android.R.id.text1,listItem);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String value=adapter.getItem(position);
+                Toast.makeText(Main4Activity.this, value, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent(Main4Activity.this,Main5Activity.class);
+                startActivity(intent);
+                return  true;
+            }
+        });
+
+
+***************************************************************************
+to hide the top appbar
+        getSupportActionBar().hide();
+
+*****************************************************************************
+
+shared preference post data
+
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("username", editText.getText().toString());
+        editor.commit();
+shared preference get data
+        sharedPreferences=getSharedPreferences(MYPREFERENCE, Context.MODE_PRIVATE);
+        textView.setText(sharedPreferences.getString("username","User"));
+ 
+ ********************************************************************************
+ 
+ volley send request
+     RequestQueue queue;
+
+     queue = Volley.newRequestQueue(this);
+
+    private void sendRequest() {
+        String url="http://35.154.107.91/sendSms/";
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(Main5Activity.this, "your message is sent successfully", Toast.LENGTH_LONG).show();
+                        Log.d("Respone",response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error Response",error.toString());
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params= new HashMap<String, String>();
+                params.put("sender",sender.getText().toString());
+                params.put("receiver",receiver.getText().toString());
+                params.put("message",message.getText().toString());
+                params.put("phone",phone.getText().toString());
+
+                return params;
+   private void sendRequest() {
+        String url="http://35.154.107.91/sendSms/";
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(Main5Activity.this, "your message is sent successfully", Toast.LENGTH_LONG).show();
+                        Log.d("Respone",response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error Response",error.toString());
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params= new HashMap<String, String>();
+                params.put("sender",sender.getText().toString());
+                params.put("receiver",receiver.getText().toString());
+                params.put("message",message.getText().toString());
+                params.put("phone",phone.getText().toString());
+
+                return params;
+
+            }
+        };
+        queue.add(stringRequest);
+    }
+            }
+        };
+        queue.add(stringRequest);
+    }
+    
+   *********************************************************************************
+   
+   intent to send the data
+   
+    Intent sendIntent = new Intent();
+    sendIntent.setAction(Intent.ACTION_SEND);
+    sendIntent.putExtra(Intent.EXTRA_TEXT,"http://www.dbcdharmapuri.edu.in/");
+  sendIntent.setType("text/plain");
+  startActivity(sendIntent);
+                
+  **********************************************************************************
+  intent to go to the next screen
+  Intent intent = new Intent(MainActivity.this,Main2Activity.class);
+  startActivity(intent);
+                        
+  ***************************************************
+
+    
+    
